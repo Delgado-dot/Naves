@@ -246,7 +246,7 @@ public class AsteroidMover : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerHealth health = other.GetComponent<PlayerHealth>();
+            PlayerHealth health = other.GetComponentInParent<PlayerHealth>();
             if (health != null)
                 health.TakeDamage(damage);
         }

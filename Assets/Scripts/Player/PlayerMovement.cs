@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public float boostConsumption = 25f;
     public float rechargeSpeed = 15f;
 
-    [Header("Cámara")]
+    [Header("CÃ¡mara")]
     public CinemachineCamera cinemachineCamera;
 
     public float normalFOV = 60f;
@@ -156,8 +156,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleBoost()
     {
         isBoostActive = boosting && boostEnergy > 0f;
-        var leftEmission = leftEngine.emission;
-        var rightEmission = rightEngine.emission;
 
         if (isBoostActive)
         {
@@ -166,16 +164,26 @@ public class PlayerMovement : MonoBehaviour
             boostEnergy -= boostConsumption * Time.deltaTime;
             boostEnergy = Mathf.Max(boostEnergy, 0f);
 
-            leftEmission.rateOverTime = 80f;
-            rightEmission.rateOverTime = 80f;
         }
         else
         {
             boostEnergy += rechargeSpeed * Time.deltaTime;
             boostEnergy = Mathf.Min(boostEnergy, maxBoostEnergy);
 
-            leftEmission.rateOverTime = 0f;
-            rightEmission.rateOverTime = 0f;
+        }
+
+        float emissionRate = isBoostActive ? 80f : 0f;
+
+        if (leftEngine != null)
+        {
+            ParticleSystem.EmissionModule leftEmission = leftEngine.emission;
+            leftEmission.rateOverTime = emissionRate;
+        }
+
+        if (rightEngine != null)
+        {
+            ParticleSystem.EmissionModule rightEmission = rightEngine.emission;
+            rightEmission.rateOverTime = emissionRate;
         }
     }
     private void UpdateCameraFOV()
