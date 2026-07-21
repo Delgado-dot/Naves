@@ -152,11 +152,11 @@ public static class MenuSceneSetup
                     colorProp.colorValue = new Color(0.85f, 0.9f, 1f, 1f);
 
                 SerializedProperty intensityProp = so.FindProperty("m_Intensity");
-                if (intensityProp != null)
+                if (intensityProp != null && intensityProp.propertyType == SerializedPropertyType.Float)
                     intensityProp.floatValue = 1.2f;
 
                 SerializedProperty tempProp = so.FindProperty("m_ColorTemperature");
-                if (tempProp != null)
+                if (tempProp != null && tempProp.propertyType == SerializedPropertyType.Float)
                     tempProp.floatValue = 7500f;
 
                 SerializedProperty useTempProp = so.FindProperty("m_UseColorTemperature");
@@ -190,7 +190,12 @@ public static class MenuSceneSetup
     private static void SetFloat(SerializedObject so, string name, float value)
     {
         SerializedProperty prop = so.FindProperty(name);
-        if (prop != null)
+        if (prop == null)
+            return;
+
+        if (prop.propertyType == SerializedPropertyType.Integer)
+            prop.intValue = (int)value;
+        else
             prop.floatValue = value;
     }
 }

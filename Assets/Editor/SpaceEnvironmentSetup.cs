@@ -214,13 +214,13 @@ public static class SpaceEnvironmentSetup
                 }
 
                 SerializedProperty intensityProp = so.FindProperty("m_Intensity");
-                if (intensityProp != null)
+                if (intensityProp != null && intensityProp.propertyType == SerializedPropertyType.Float)
                 {
                     intensityProp.floatValue = 1.2f;
                 }
 
                 SerializedProperty tempProp = so.FindProperty("m_ColorTemperature");
-                if (tempProp != null)
+                if (tempProp != null && tempProp.propertyType == SerializedPropertyType.Float)
                 {
                     tempProp.floatValue = 7500f;
                 }
@@ -262,7 +262,12 @@ public static class SpaceEnvironmentSetup
     private static void SetSerializedFloat(SerializedObject so, string name, float value)
     {
         SerializedProperty prop = so.FindProperty(name);
-        if (prop != null)
+        if (prop == null)
+            return;
+
+        if (prop.propertyType == SerializedPropertyType.Integer)
+            prop.intValue = (int)value;
+        else
             prop.floatValue = value;
     }
 }
