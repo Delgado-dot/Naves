@@ -22,11 +22,11 @@ public class EngineExhaust : MonoBehaviour
     private ParticleSystem rightPS;
     private Light leftGlow;
     private Light rightGlow;
-    private PlayerShipController shipController;
+    //private PlayerShipController shipController;
 
     private void Start()
     {
-        shipController = GetComponent<PlayerShipController>();
+        //shipController = GetComponent<PlayerShipController>();
 
         if (leftExhaust == null) leftExhaust = transform.Find("FirePointLeft");
         if (rightExhaust == null) rightExhaust = transform.Find("FirePointRight");
@@ -37,18 +37,18 @@ public class EngineExhaust : MonoBehaviour
 
     private void Update()
     {
-        float intensity = shipController != null ? 1f : 0.5f;
+        //float intensity = shipController != null ? 1f : 0.5f;
         float pulse = 1f + Mathf.Sin(Time.time * pulseSpeed) * 0.15f;
 
         if (leftGlow != null)
         {
-            leftGlow.intensity = glowIntensity * intensity * pulse;
+            //leftGlow.intensity = glowIntensity * intensity * pulse;
             leftGlow.color = glowColor;
         }
 
         if (rightGlow != null)
         {
-            rightGlow.intensity = glowIntensity * intensity * pulse;
+            //rightGlow.intensity = glowIntensity * intensity * pulse;
             rightGlow.color = glowColor;
         }
     }

@@ -1,5 +1,7 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +17,26 @@ public class PlayerMovement : MonoBehaviour
     public float strafeSpeed = 12f;
     public float strafeSmooth = 8f;
 
+    [Header("Boost")]
+    public float boostSpeed = 55f;
+    public float boostAcceleration = 25f;
+
+    public float maxBoostEnergy = 100f;
+    public float boostConsumption = 25f;
+    public float rechargeSpeed = 15f;
+
+    [Header("Cámara")]
+    public CinemachineCamera cinemachineCamera;
+
+    public float normalFOV = 60f;
+    public float boostFOV = 75f;
+    public float fovSpeed = 8f;
+
+    private bool isBoostActive;
+    private float boostEnergy;
+    private bool boosting;
+    public ParticleSystem leftEngine;
+    public ParticleSystem rightEngine;
     private float currentSpeed;
     private float targetSpeed;
 
@@ -22,10 +44,11 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInputActions controls;
     private Vector2 moveInput;
-
+    
 
     private void Awake()
     {
+        
         controls = new PlayerInputActions();
 
         controls.Player.Move.performed += ctx =>
@@ -37,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
         {
             moveInput = Vector2.zero;
         };
+        controls.Player.Boost.performed += _ => boosting = true;
+        controls.Player.Boost.canceled += _ => boosting = false;
     }
 
 
@@ -54,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        boostEnergy = maxBoostEnergy;
         currentSpeed = baseSpeed;
         targetSpeed = baseSpeed;
     }
@@ -61,9 +87,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        HandleBoost();
         SpeedControl();
         MoveForward();
         Strafe();
+        UpdateCameraFOV();
     }
 
 
@@ -83,10 +111,7 @@ public class PlayerMovement : MonoBehaviour
             strafeSmooth * Time.deltaTime
         );
 
-
-        Vector3 lateral =
-            transform.right * currentStrafe;
-
+        Vector3 lateral = transform.right * currentStrafe;
 
         transform.position += lateral * Time.deltaTime;
     }
@@ -108,20 +133,64 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+        float accel = isBoostActive ? boostAcceleration : acceleration;
+
         if (currentSpeed < targetSpeed)
         {
-            currentSpeed += acceleration * Time.deltaTime;
+            currentSpeed += accel * Time.deltaTime;
         }
+    
         else if (currentSpeed > targetSpeed)
         {
             currentSpeed -= deceleration * Time.deltaTime;
         }
 
+        float maxAllowedSpeed = isBoostActive ? boostSpeed : maxSpeed;
 
         currentSpeed = Mathf.Clamp(
             currentSpeed,
             minSpeed,
-            maxSpeed
+            maxAllowedSpeed
+        );
+    }
+    private void HandleBoost()
+    {
+        isBoostActive = boosting && boostEnergy > 0f;
+        var leftEmission = leftEngine.emission;
+        var rightEmission = rightEngine.emission;
+
+        if (isBoostActive)
+        {
+            targetSpeed = boostSpeed;
+
+            boostEnergy -= boostConsumption * Time.deltaTime;
+            boostEnergy = Mathf.Max(boostEnergy, 0f);
+
+            leftEmission.rateOverTime = 80f;
+            rightEmission.rateOverTime = 80f;
+        }
+        else
+        {
+            boostEnergy += rechargeSpeed * Time.deltaTime;
+            boostEnergy = Mathf.Min(boostEnergy, maxBoostEnergy);
+
+            leftEmission.rateOverTime = 0f;
+            rightEmission.rateOverTime = 0f;
+        }
+    }
+    private void UpdateCameraFOV()
+    {
+        if (cinemachineCamera == null)
+            return;
+
+        float targetFOV = isBoostActive
+            ? boostFOV
+            : normalFOV;
+
+        cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(
+            cinemachineCamera.Lens.FieldOfView,
+            targetFOV,
+            fovSpeed * Time.deltaTime
         );
     }
 }
