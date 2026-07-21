@@ -14,6 +14,10 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private float rollIntensity = 25f;
     [SerializeField] private float rollSmoothTime = 0.2f;
 
+    [Header("Bounds")]
+    [SerializeField] private Vector3 minBounds = new Vector3(-20f, 0f, -20f);
+    [SerializeField] private Vector3 maxBounds = new Vector3(20f, 20f, 20f);
+
     private InputAction moveAction;
     private InputAction lookAction;
     private Vector2 moveInput;
@@ -87,6 +91,16 @@ public class PlayerShipController : MonoBehaviour
 
         ApplyMovement();
         ApplyRotation();
+        ClampPosition();
+    }
+
+    private void ClampPosition()
+    {
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, minBounds.x, maxBounds.x);
+        pos.y = Mathf.Clamp(pos.y, minBounds.y, maxBounds.y);
+        pos.z = Mathf.Clamp(pos.z, minBounds.z, maxBounds.z);
+        transform.position = pos;
     }
 
     private void ApplyMovement()
