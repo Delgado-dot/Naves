@@ -32,10 +32,10 @@ public sealed class HUDRadarGraphic : MaskableGraphic
         rootRect.offsetMin = Vector2.zero;
         rootRect.offsetMax = Vector2.zero;
 
-        CrearEtiqueta(root.transform, "Norte", "N", new Vector2(0f, 0.41f), 24f, Color.white);
-        CrearEtiqueta(root.transform, "Este", "E", new Vector2(0.41f, 0f), 24f, Color.white);
-        CrearEtiqueta(root.transform, "Sur", "S", new Vector2(0f, -0.41f), 24f, Color.white);
-        CrearEtiqueta(root.transform, "Oeste", "O", new Vector2(-0.41f, 0f), 24f, Color.white);
+        CrearEtiqueta(root.transform, "Norte", "N", new Vector2(0f, 0.405f), 30f, Color.white);
+        CrearEtiqueta(root.transform, "Este", "E", new Vector2(0.405f, 0f), 30f, Color.white);
+        CrearEtiqueta(root.transform, "Sur", "S", new Vector2(0f, -0.405f), 30f, Color.white);
+        CrearEtiqueta(root.transform, "Oeste", "O", new Vector2(-0.405f, 0f), 30f, Color.white);
 
         string[] grados = { "045", "135", "225", "315" };
         float[] angulos = { 45f, -45f, -135f, 135f };
@@ -43,8 +43,8 @@ public sealed class HUDRadarGraphic : MaskableGraphic
         {
             float radianes = angulos[i] * Mathf.Deg2Rad;
             Vector2 posicion = new Vector2(Mathf.Cos(radianes), Mathf.Sin(radianes)) * 0.34f;
-            CrearEtiqueta(root.transform, "Grado_" + grados[i], grados[i], posicion, 13f,
-                new Color(0.25f, 0.82f, 1f, 0.78f));
+            CrearEtiqueta(root.transform, "Grado_" + grados[i], grados[i], posicion, 16f,
+                new Color(0.38f, 0.88f, 1f, 0.9f));
         }
     }
 
@@ -67,6 +67,8 @@ public sealed class HUDRadarGraphic : MaskableGraphic
         label.fontStyle = FontStyles.Bold;
         label.alignment = TextAlignmentOptions.Center;
         label.color = color;
+        label.outlineColor = new Color32(0, 22, 48, 255);
+        label.outlineWidth = 0.22f;
         label.raycastTarget = false;
         label.enableWordWrapping = false;
     }
@@ -77,37 +79,74 @@ public sealed class HUDRadarGraphic : MaskableGraphic
         Rect r = GetPixelAdjustedRect();
         Vector2 c = r.center;
         float radius = Mathf.Min(r.width, r.height) * 0.46f;
-        Color fill = new(0.005f, 0.035f, 0.09f, 0.88f);
+        Color fill = new(0.003f, 0.025f, 0.065f, 0.93f);
         Color cyan = new(0.02f, 0.72f, 1f, 0.9f);
         float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * velocidadPulso * Mathf.PI * 2f);
-        AddRing(vh, c, radius + 9f, 7f + pulse * 4f, 64, new Color(cyan.r, cyan.g, cyan.b, .1f + pulse * .16f));
-        AddDisk(vh, c, radius, 64, fill);
-        AddRing(vh, c, radius, 4f, 64, cyan);
-        AddRing(vh, c, radius - 7f, 1.5f, 64, new Color(cyan.r, cyan.g, cyan.b, .75f));
-        AddRing(vh, c, radius * .72f, 1.3f, 64, new Color(cyan.r, cyan.g, cyan.b, .45f));
-        AddRing(vh, c, radius * .4f, 1.2f, 64, new Color(cyan.r, cyan.g, cyan.b, .35f));
-        AddLine(vh, c + Vector2.left * radius, c + Vector2.right * radius, 1.2f, new Color(cyan.r, cyan.g, cyan.b, .55f));
-        AddLine(vh, c + Vector2.down * radius, c + Vector2.up * radius, 1.2f, new Color(cyan.r, cyan.g, cyan.b, .55f));
+        AddRing(vh, c, radius + 8f, 6f + pulse * 3f, 96, new Color(cyan.r, cyan.g, cyan.b, .08f + pulse * .12f));
+        AddDisk(vh, c, radius, 96, fill);
+        AddRing(vh, c, radius, 4f, 96, cyan);
+        AddRing(vh, c, radius - 7f, 1.3f, 96, new Color(cyan.r, cyan.g, cyan.b, .68f));
+        AddRing(vh, c, radius * .72f, 1.1f, 96, new Color(cyan.r, cyan.g, cyan.b, .3f));
+        AddRing(vh, c, radius * .4f, 1f, 96, new Color(cyan.r, cyan.g, cyan.b, .24f));
+        AddLine(vh, c + Vector2.left * radius, c + Vector2.right * radius, 1f, new Color(cyan.r, cyan.g, cyan.b, .38f));
+        AddLine(vh, c + Vector2.down * radius, c + Vector2.up * radius, 1f, new Color(cyan.r, cyan.g, cyan.b, .38f));
         for (int i = 0; i < 8; i++)
         {
             float a = i * Mathf.PI / 4f;
             Vector2 d = new(Mathf.Cos(a), Mathf.Sin(a));
-            AddLine(vh, c, c + d * radius, 1f, new Color(cyan.r, cyan.g, cyan.b, .16f));
-            AddLine(vh, c + d * radius * .86f, c + d * radius, 3f, cyan);
-            AddLine(vh, c + d * (radius + 5f), c + d * (radius + 15f), 5f, cyan);
+            AddLine(vh, c, c + d * radius, .8f, new Color(cyan.r, cyan.g, cyan.b, .1f));
+            AddLine(vh, c + d * radius * .88f, c + d * radius, 2.3f, cyan);
+            AddLine(vh, c + d * (radius + 5f), c + d * (radius + 13f), 3.5f, cyan);
         }
 
         float sweepAngle = Time.unscaledTime * velocidadBarrido * Mathf.Deg2Rad;
-        for (int trail = 5; trail >= 0; trail--)
+        AddWedge(vh, c, radius * .93f, sweepAngle - .58f, sweepAngle,
+            new Color(.03f, .65f, 1f, .14f));
+        for (int trail = 4; trail >= 0; trail--)
         {
-            float angle = sweepAngle - trail * 0.075f;
+            float angle = sweepAngle - trail * 0.09f;
             Vector2 direction = new(Mathf.Cos(angle), Mathf.Sin(angle));
-            float alpha = Mathf.Lerp(.06f, .9f, 1f - trail / 5f);
-            float width = Mathf.Lerp(1f, 3.5f, 1f - trail / 5f);
+            float alpha = Mathf.Lerp(.04f, .86f, 1f - trail / 4f);
+            float width = Mathf.Lerp(.8f, 2.8f, 1f - trail / 4f);
             AddLine(vh, c, c + direction * radius * .94f, width, new Color(.1f, .85f, 1f, alpha));
         }
 
-        AddRing(vh, c, 4f + pulse * 2f, 2f, 16, new Color(.25f, .9f, 1f, .7f + pulse * .3f));
+        AddRing(vh, c, 7f + pulse * 2f, 1.5f, 24, new Color(.25f, .9f, 1f, .45f + pulse * .25f));
+        AddShipMarker(vh, c, new Color(.55f, .94f, 1f, 1f));
+    }
+
+    private static void AddWedge(VertexHelper vh, Vector2 c, float radius, float from, float to, Color color)
+    {
+        const int segments = 18;
+        int start = vh.currentVertCount;
+        vh.AddVert(c, new Color(color.r, color.g, color.b, 0f), Vector2.zero);
+        for (int i = 0; i <= segments; i++)
+        {
+            float t = i / (float)segments;
+            float angle = Mathf.Lerp(from, to, t);
+            Color edge = new(color.r, color.g, color.b, color.a * t);
+            vh.AddVert(c + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius, edge, Vector2.zero);
+            if (i > 0) vh.AddTriangle(start, start + i, start + i + 1);
+        }
+    }
+
+    private static void AddShipMarker(VertexHelper vh, Vector2 c, Color color)
+    {
+        int start = vh.currentVertCount;
+        Vector2[] points =
+        {
+            c + new Vector2(0f, 13f), c + new Vector2(-5f, 2f),
+            c + new Vector2(-11f, -5f), c + new Vector2(-4f, -3f),
+            c + new Vector2(0f, -9f), c + new Vector2(4f, -3f),
+            c + new Vector2(11f, -5f), c + new Vector2(5f, 2f)
+        };
+        foreach (Vector2 point in points) vh.AddVert(point, color, Vector2.zero);
+        vh.AddTriangle(start, start + 1, start + 7);
+        vh.AddTriangle(start + 1, start + 3, start + 4);
+        vh.AddTriangle(start + 1, start + 4, start + 7);
+        vh.AddTriangle(start + 4, start + 5, start + 7);
+        vh.AddTriangle(start + 1, start + 2, start + 3);
+        vh.AddTriangle(start + 5, start + 6, start + 7);
     }
 
     private static void AddDisk(VertexHelper vh, Vector2 c, float radius, int n, Color color)

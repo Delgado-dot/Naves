@@ -25,8 +25,11 @@ public class RadarController : MonoBehaviour
     {
         dotSprite = HUDTextureUtility.CreateCircleSprite(32, Color.white);
 
+        // HUDRadarGraphic dibuja un marcador de nave más limpio en el centro.
+        // Se conserva la referencia serializada, pero se oculta el triángulo anterior
+        // para evitar que ambos gráficos se superpongan.
         if (playerArrowImage != null)
-            playerArrowImage.sprite = HUDTextureUtility.CreateTriangleSprite(32, new Color(0.4f, 0.85f, 1f, 1f));
+            playerArrowImage.enabled = false;
 
         if (player == null)
         {
