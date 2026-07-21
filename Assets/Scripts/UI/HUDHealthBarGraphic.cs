@@ -10,7 +10,7 @@ public sealed class HUDHealthBarGraphic : MaskableGraphic
     {
         vh.Clear(); Rect r=GetPixelAdjustedRect(); AddQuad(vh,r,new Color(.01f,.04f,.1f,.98f));
         Rect inner=new(r.xMin+4,r.yMin+4,r.width-8,r.height-8); float filled=inner.width*fill;
-        int segments=20; float gap=2f; float segmentWidth=(inner.width-gap*(segments-1))/segments;
+        int segments=16; float gap=3f; float segmentWidth=(inner.width-gap*(segments-1))/segments;
         for(int i=0;i<segments;i++){float x=inner.xMin+i*(segmentWidth+gap);if(x>=inner.xMin+filled)break;float shown=Mathf.Min(segmentWidth,inner.xMin+filled-x);float t=i/(float)(segments-1);Color col=Color.Lerp(new Color(.04f,.65f,1f),new Color(1f,.16f,.22f),t);AddQuad(vh,new Rect(x,inner.yMin,shown,inner.height),col);AddLine(vh,new Vector2(x+2,inner.yMin),new Vector2(x+shown-2,inner.yMax),1.5f,new Color(1,1,1,.25f));}
         AddLoop(vh,r,2f,new Color(.12f,.78f,1f,.9f));
     }

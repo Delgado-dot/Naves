@@ -54,6 +54,7 @@ public sealed class MenuPrincipalController : MonoBehaviour
     public void AbrirAjustes()
     {
         panelCreditos?.SetActive(false);
+        TraerAlFrente(panelAjustes);
         panelAjustes?.SetActive(true);
         botonVolverAjustes?.Select();
     }
@@ -61,6 +62,7 @@ public sealed class MenuPrincipalController : MonoBehaviour
     public void AbrirCreditos()
     {
         panelAjustes?.SetActive(false);
+        TraerAlFrente(panelCreditos);
         panelCreditos?.SetActive(true);
         botonVolverCreditos?.Select();
     }
@@ -113,5 +115,14 @@ public sealed class MenuPrincipalController : MonoBehaviour
             return;
         boton.onClick.RemoveListener(accion);
         boton.onClick.AddListener(accion);
+    }
+
+    private static void TraerAlFrente(GameObject panel)
+    {
+        if (panel == null)
+            return;
+
+        panel.transform.parent?.SetAsLastSibling();
+        panel.transform.SetAsLastSibling();
     }
 }

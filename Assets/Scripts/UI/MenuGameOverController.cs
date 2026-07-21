@@ -9,6 +9,7 @@ public sealed class MenuGameOverController : MonoBehaviour
 {
     private const string EscenaGameplay = "Gameplay";
     private const string EscenaMenuPrincipal = "MenuPrincipal";
+    private const string MarcaDiseno = "DisenoReferenciaV3";
 
     [Header("Menu Game Over")]
     [SerializeField] private GameObject menuGameOver;
@@ -150,57 +151,75 @@ public sealed class MenuGameOverController : MonoBehaviour
     private void ActualizarResultados()
     {
         if (textoPuntos != null)
-            textoPuntos.text = $"PUNTOS: {puntosFinales:0000}";
+            textoPuntos.text = $"{puntosFinales:0000}";
         if (textoHorda != null)
-            textoHorda.text = $"HORDA: {hordaFinal}";
+            textoHorda.text = $"{hordaFinal}";
         if (textoTiempo != null)
         {
             int totalSegundos = Mathf.Max(0, Mathf.FloorToInt(tiempoFinal));
-            textoTiempo.text = $"TIEMPO: {totalSegundos / 60:00}:{totalSegundos % 60:00}";
+            textoTiempo.text = $"{totalSegundos / 60:00}:{totalSegundos % 60:00}";
         }
     }
 
     private void ConstruirInterfazSiEsNecesario()
     {
-        if (menuGameOver.transform.Find("FondoOscuro") != null)
+        Transform disenoExistente = menuGameOver.transform.Find($"FondoOscuro/PanelPrincipal/{MarcaDiseno}");
+        if (disenoExistente != null)
+        {
+            ConectarInterfazExistente();
             return;
+        }
+
+        Transform fondoAnterior = menuGameOver.transform.Find("FondoOscuro");
+        if (fondoAnterior != null)
+        {
+            if (Application.isPlaying)
+                Destroy(fondoAnterior.gameObject);
+            else
+                DestroyImmediate(fondoAnterior.gameObject);
+        }
 
         RectTransform raiz = menuGameOver.GetComponent<RectTransform>();
         AjustarRect(raiz, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
-        Image fondo = CrearImagen("FondoOscuro", menuGameOver.transform, new Color(0.005f, 0.008f, 0.025f, 0.22f));
+        Image fondo = CrearImagen("FondoOscuro", menuGameOver.transform, new Color(0.002f, 0.006f, 0.02f, 0.28f));
         AjustarRect(fondo.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
-        Image marco = CrearImagen("MarcoCian", fondo.transform, new Color(0.03f, 0.78f, 1f, 0.96f));
-        AjustarCentro(marco.rectTransform, new Vector2(760f, 790f), Vector2.zero);
+        Image panel = CrearImagen("PanelPrincipal", fondo.transform, new Color(0.003f, 0.014f, 0.045f, 0.9f));
+        AjustarCentro(panel.rectTransform, new Vector2(720f, 690f), Vector2.zero);
 
-        Image panel = CrearImagen("PanelAzulOscuro", marco.transform, new Color(0.006f, 0.025f, 0.08f, 0.72f));
-        AjustarRect(panel.rectTransform, Vector2.zero, Vector2.one, new Vector2(6f, 6f), new Vector2(-6f, -6f));
+        GameObject marca = new(MarcaDiseno, typeof(RectTransform));
+        marca.layer = panel.gameObject.layer;
+        marca.transform.SetParent(panel.transform, false);
 
-        Image bordeVioleta = CrearImagen("DetalleVioleta", panel.transform, new Color(0.55f, 0.16f, 0.95f, 0.9f));
-        AjustarCentro(bordeVioleta.rectTransform, new Vector2(5f, 610f), new Vector2(350f, 0f));
+        CrearMarcoTecnologico(panel.transform);
 
-        TMP_Text tituloBrillo = CrearTexto("BrilloGameOver", panel.transform, "GAME OVER", 76f, new Color(1f, 0.05f, 0.03f, 0.34f));
-        AjustarCentro(tituloBrillo.rectTransform, new Vector2(650f, 120f), new Vector2(0f, 282f));
+        CrearDetalle(panel.transform, "SuperiorIzquierda", new Vector2(135f, 5f), new Vector2(-270f, 327f), new Color(0.05f, 0.88f, 1f, 1f));
+        CrearDetalle(panel.transform, "SuperiorDerecha", new Vector2(135f, 5f), new Vector2(270f, 327f), new Color(0.05f, 0.88f, 1f, 1f));
+        CrearDetalle(panel.transform, "LateralRojo", new Vector2(5f, 145f), new Vector2(-346f, 45f), new Color(1f, 0.16f, 0.08f, 1f));
+        CrearDetalle(panel.transform, "LateralVioleta", new Vector2(5f, 190f), new Vector2(346f, -40f), new Color(0.56f, 0.18f, 1f, 1f));
+
+        TMP_Text tituloBrillo = CrearTexto("BrilloGameOver", panel.transform, "GAME OVER", 78f, new Color(1f, 0.04f, 0.02f, 0.38f));
+        AjustarCentro(tituloBrillo.rectTransform, new Vector2(620f, 112f), new Vector2(0f, 260f));
         tituloBrillo.fontStyle = FontStyles.Bold;
-        tituloBrillo.transform.localScale = Vector3.one * 1.045f;
+        tituloBrillo.transform.localScale = Vector3.one * 1.06f;
 
-        TMP_Text titulo = CrearTexto("TituloGameOver", panel.transform, "GAME OVER", 72f, new Color(1f, 0.93f, 0.93f, 1f));
-        AjustarCentro(titulo.rectTransform, new Vector2(650f, 120f), new Vector2(0f, 282f));
+        TMP_Text titulo = CrearTexto("TituloGameOver", panel.transform, "GAME OVER", 72f, new Color(1f, 0.96f, 0.95f, 1f));
+        AjustarCentro(titulo.rectTransform, new Vector2(620f, 112f), new Vector2(0f, 260f));
         titulo.fontStyle = FontStyles.Bold;
-        titulo.outlineColor = new Color32(210, 18, 18, 255);
-        titulo.outlineWidth = 0.3f;
+        titulo.outlineColor = new Color32(235, 24, 18, 255);
+        titulo.outlineWidth = 0.34f;
 
         Image separador = CrearImagen("SeparadorRojo", panel.transform, new Color(1f, 0.12f, 0.08f, 0.9f));
-        AjustarCentro(separador.rectTransform, new Vector2(520f, 3f), new Vector2(0f, 220f));
+        AjustarCentro(separador.rectTransform, new Vector2(510f, 3f), new Vector2(0f, 202f));
 
-        textoPuntos = CrearFilaResultado(panel.transform, "FilaPuntos", "PUNTOS: 0000", 135f);
-        textoHorda = CrearFilaResultado(panel.transform, "FilaHorda", "HORDA: 1", 55f);
-        textoTiempo = CrearFilaResultado(panel.transform, "FilaTiempo", "TIEMPO: 00:00", -25f);
+        CrearFilaResultado(panel.transform, "FilaPuntos", "PUNTOS", "0000", 125f, out textoPuntos);
+        CrearFilaResultado(panel.transform, "FilaHorda", "HORDA", "1", 55f, out textoHorda);
+        CrearFilaResultado(panel.transform, "FilaTiempo", "TIEMPO", "00:00", -15f, out textoTiempo);
 
-        botonReintentar = CrearBoton(panel.transform, "BotonReintentar", "REINTENTAR", -145f, Reintentar, true);
-        CrearBoton(panel.transform, "BotonMenuPrincipal", "MENÚ PRINCIPAL", -235f, IrAlMenuPrincipal, false);
-        CrearBoton(panel.transform, "BotonSalir", "SALIR", -325f, Salir, false);
+        botonReintentar = CrearBoton(panel.transform, "BotonReintentar", "REINTENTAR", -135f, Reintentar, true);
+        CrearBoton(panel.transform, "BotonMenuPrincipal", "MENÚ PRINCIPAL", -210f, IrAlMenuPrincipal, false);
+        CrearBoton(panel.transform, "BotonSalir", "SALIR", -285f, Salir, false);
     }
 
     private void AplicarTransparencia()
@@ -211,25 +230,92 @@ public sealed class MenuGameOverController : MonoBehaviour
 
         Image fondo = fondoTransform.GetComponent<Image>();
         if (fondo != null)
-            fondo.color = new Color(0.005f, 0.008f, 0.025f, 0.22f);
+            fondo.color = new Color(0.002f, 0.006f, 0.02f, 0.28f);
 
-        Transform panelTransform = fondoTransform.Find("MarcoCian/PanelAzulOscuro");
+        Transform panelTransform = fondoTransform.Find("PanelPrincipal");
         Image panel = panelTransform != null ? panelTransform.GetComponent<Image>() : null;
         if (panel != null)
-            panel.color = new Color(0.006f, 0.025f, 0.08f, 0.72f);
+            panel.color = new Color(0.003f, 0.014f, 0.045f, 0.9f);
     }
 
-    private TMP_Text CrearFilaResultado(Transform padre, string nombre, string contenido, float y)
+    private void CrearFilaResultado(Transform padre, string nombre, string etiqueta, string valorInicial, float y, out TMP_Text textoValor)
     {
         Image borde = CrearImagen(nombre, padre, new Color(0.04f, 0.42f, 0.68f, 0.9f));
-        AjustarCentro(borde.rectTransform, new Vector2(610f, 64f), new Vector2(0f, y));
-        Image interior = CrearImagen("Fondo", borde.transform, new Color(0.006f, 0.02f, 0.055f, 1f));
+        AjustarCentro(borde.rectTransform, new Vector2(610f, 58f), new Vector2(0f, y));
+        Image interior = CrearImagen("Fondo", borde.transform, new Color(0.004f, 0.018f, 0.05f, 0.9f));
         AjustarRect(interior.rectTransform, Vector2.zero, Vector2.one, new Vector2(2f, 2f), new Vector2(-2f, -2f));
-        TMP_Text texto = CrearTexto("Texto", interior.transform, contenido, 32f, new Color(0.25f, 0.82f, 1f, 1f));
-        AjustarRect(texto.rectTransform, Vector2.zero, Vector2.one, new Vector2(28f, 0f), new Vector2(-28f, 0f));
-        texto.alignment = TextAlignmentOptions.MidlineLeft;
-        texto.fontStyle = FontStyles.Bold;
-        return texto;
+
+        TMP_Text textoEtiqueta = CrearTexto("Etiqueta", interior.transform, etiqueta, 29f, Color.white);
+        AjustarRect(textoEtiqueta.rectTransform, Vector2.zero, Vector2.one, new Vector2(38f, 0f), new Vector2(-300f, 0f));
+        textoEtiqueta.alignment = TextAlignmentOptions.MidlineLeft;
+        textoEtiqueta.fontStyle = FontStyles.Bold;
+
+        textoValor = CrearTexto("Valor", interior.transform, valorInicial, 38f, new Color(0.05f, 0.72f, 1f, 1f));
+        AjustarRect(textoValor.rectTransform, Vector2.zero, Vector2.one, new Vector2(330f, 0f), new Vector2(-42f, 0f));
+        textoValor.alignment = TextAlignmentOptions.MidlineRight;
+        textoValor.fontStyle = FontStyles.Bold;
+    }
+
+    private void ConectarInterfazExistente()
+    {
+        Transform panel = menuGameOver.transform.Find("FondoOscuro/PanelPrincipal");
+        if (panel == null)
+            return;
+
+        textoPuntos = panel.Find("FilaPuntos/Fondo/Valor")?.GetComponent<TMP_Text>();
+        textoHorda = panel.Find("FilaHorda/Fondo/Valor")?.GetComponent<TMP_Text>();
+        textoTiempo = panel.Find("FilaTiempo/Fondo/Valor")?.GetComponent<TMP_Text>();
+        botonReintentar = ConectarBotonExistente(panel, "BotonReintentar", Reintentar);
+        ConectarBotonExistente(panel, "BotonMenuPrincipal", IrAlMenuPrincipal);
+        ConectarBotonExistente(panel, "BotonSalir", Salir);
+    }
+
+    private static Button ConectarBotonExistente(Transform panel, string nombre, UnityEngine.Events.UnityAction accion)
+    {
+        Button boton = panel.Find(nombre)?.GetComponent<Button>();
+        if (boton == null)
+            return null;
+
+        boton.onClick.RemoveListener(accion);
+        boton.onClick.AddListener(accion);
+        return boton;
+    }
+
+    private static void CrearDetalle(Transform padre, string nombre, Vector2 tamano, Vector2 posicion, Color color)
+    {
+        Image detalle = CrearImagen(nombre, padre, color);
+        AjustarCentro(detalle.rectTransform, tamano, posicion);
+        detalle.raycastTarget = false;
+    }
+
+    private static void CrearMarcoTecnologico(Transform panel)
+    {
+        Color cyan = new(0.02f, 0.82f, 1f, 1f);
+        Color cyanInterior = new(0.04f, 0.38f, 0.68f, 0.9f);
+        Color violeta = new(0.5f, 0.18f, 1f, 0.95f);
+
+        CrearLineaMarco(panel, "BordeSuperior", new Vector2(620f, 4f), new Vector2(0f, 343f), 0f, cyan);
+        CrearLineaMarco(panel, "BordeInferior", new Vector2(620f, 4f), new Vector2(0f, -343f), 0f, cyan);
+        CrearLineaMarco(panel, "BordeIzquierdo", new Vector2(4f, 590f), new Vector2(-358f, 0f), 0f, cyan);
+        CrearLineaMarco(panel, "BordeDerecho", new Vector2(4f, 590f), new Vector2(358f, 0f), 0f, cyan);
+
+        CrearLineaMarco(panel, "EsquinaSupIzq", new Vector2(82f, 4f), new Vector2(-329f, 316f), -43f, cyan);
+        CrearLineaMarco(panel, "EsquinaSupDer", new Vector2(82f, 4f), new Vector2(329f, 316f), 43f, cyan);
+        CrearLineaMarco(panel, "EsquinaInfIzq", new Vector2(82f, 4f), new Vector2(-329f, -316f), 43f, cyan);
+        CrearLineaMarco(panel, "EsquinaInfDer", new Vector2(82f, 4f), new Vector2(329f, -316f), -43f, cyan);
+
+        CrearLineaMarco(panel, "InteriorSuperior", new Vector2(510f, 2f), new Vector2(0f, 330f), 0f, cyanInterior);
+        CrearLineaMarco(panel, "InteriorInferior", new Vector2(510f, 2f), new Vector2(0f, -330f), 0f, cyanInterior);
+        CrearLineaMarco(panel, "AcentoVioletaSuperior", new Vector2(105f, 4f), new Vector2(250f, 337f), 0f, violeta);
+        CrearLineaMarco(panel, "AcentoVioletaInferior", new Vector2(105f, 4f), new Vector2(-250f, -337f), 0f, violeta);
+    }
+
+    private static void CrearLineaMarco(Transform padre, string nombre, Vector2 tamano, Vector2 posicion, float rotacion, Color color)
+    {
+        Image linea = CrearImagen(nombre, padre, color);
+        AjustarCentro(linea.rectTransform, tamano, posicion);
+        linea.rectTransform.localRotation = Quaternion.Euler(0f, 0f, rotacion);
+        linea.raycastTarget = false;
     }
 
     private Button CrearBoton(Transform padre, string nombre, string etiqueta, float y, UnityEngine.Events.UnityAction accion, bool destacado)
