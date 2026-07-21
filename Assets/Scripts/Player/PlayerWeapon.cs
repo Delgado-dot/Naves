@@ -8,7 +8,9 @@ public class PlayerWeapon : MonoBehaviour
     public Transform aimTarget;
 
     public float fireRate = 0.2f;
-
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip shootSound;
     private PlayerInputActions controls;
     private float nextFireTime;
 
@@ -41,9 +43,13 @@ public class PlayerWeapon : MonoBehaviour
         if (Time.time < nextFireTime)
             return;
 
-
         nextFireTime = Time.time + fireRate;
 
+        // Sonido de disparo
+        if (audioSource != null && shootSound != null)
+        {
+            audioSource.PlayOneShot(shootSound);
+        }
 
         GameObject bullet = Instantiate(
             projectilePrefab,
@@ -54,6 +60,7 @@ public class PlayerWeapon : MonoBehaviour
 
         Vector3 direction =
             (aimTarget.position - firePoint.position).normalized;
+
 
         Debug.Log("Direccion disparo: " + direction);
 
