@@ -116,4 +116,21 @@ public class PlayerShooter : MonoBehaviour
             firePointRight.localPosition = pos;
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        if (firePointLeft != null)
+        {
+            Gizmos.DrawSphere(firePointLeft.position, 0.08f);
+            Gizmos.DrawRay(firePointLeft.position, firePointLeft.forward * 0.5f);
+        }
+
+        if (firePointRight != null)
+        {
+            Gizmos.DrawSphere(firePointRight.position, 0.08f);
+            Gizmos.DrawRay(firePointRight.position, firePointRight.forward * 0.5f);
+        }
+    }
 }

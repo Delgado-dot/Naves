@@ -144,4 +144,12 @@ public class PlayerShipController : MonoBehaviour
 
         transform.rotation = yawRot * pitchRot * rollRot;
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 center = (minBounds + maxBounds) * 0.5f;
+        Vector3 size = maxBounds - minBounds;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(center, size);
+    }
 }
