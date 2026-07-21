@@ -49,8 +49,14 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInputActions controls;
     private Vector2 moveInput;
-    
 
+    private bool canMove = true;
+
+    public void DisableMovement()
+    {
+        canMove = false;
+        currentSpeed = 0f;
+    }
     private void Awake()
     {
         
@@ -92,6 +98,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove)
+            return;
+
         HandleBoost();
         SpeedControl();
         MoveForward();

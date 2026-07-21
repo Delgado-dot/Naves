@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
+using Unity.Cinemachine;
+
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -18,6 +21,15 @@ public class PlayerHealth : MonoBehaviour
     public UnityEvent<float, float> OnHealthChanged;
     public UnityEvent OnDeath;
     public UnityEvent OnDamage;
+    [Header("Death Explosion")]
+    [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject playerModel;
+    [SerializeField] private float explosionDuration = 2f;
+
+
+    [SerializeField] private CinemachineCamera gameplayCamera;
+
+    private bool hasDied;
 
     public float MaxHealth => maxHealth;
     public float CurrentHealth => currentHealth;
@@ -83,6 +95,45 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        if (hasDied)
+            return;
+
+        hasDied = true;
+
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null)
+        {
+            movement.DisableMovement();
+        }
+
+        if (gameplayCamera != null)
+        {
+            gameplayCamera.Follow = null;
+            gameplayCamera.LookAt = null;
+        }
+
+        if (explosionPrefab != null)
+        {
+            GameObject explosion = Instantiate(
+                explosionPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+
+            Destroy(explosion, explosionDuration);
+        }
+
+        if (playerModel != null)
+        {
+            playerModel.SetActive(false);
+        }
+
+        StartCoroutine(DeathSequence());
+    }
+    private IEnumerator DeathSequence()
+    {
+        yield return new WaitForSeconds(explosionDuration);
+
         OnDeath?.Invoke();
     }
 }

@@ -24432,6 +24432,10 @@ MonoBehaviour:
   OnDamage:
     m_PersistentCalls:
       m_Calls: []
+  explosionPrefab: {fileID: 100006, guid: 28ccd38a41e256a4e8fea96f5a8d039d, type: 3}
+  playerModel: {fileID: 597038391}
+  explosionDuration: 2
+  gameplayCamera: {fileID: 0}
 --- !u!114 &1600265867
 MonoBehaviour:
   m_ObjectHideFlags: 0
