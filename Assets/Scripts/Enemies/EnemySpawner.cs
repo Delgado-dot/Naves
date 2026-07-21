@@ -14,10 +14,10 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Ritmo de aparicion")]
     [Tooltip("Segundos de espera entre cada intento de spawn.")]
-    [SerializeField, Min(0.1f)] private float spawnInterval = 3f;
+    [SerializeField, Min(0.1f)] private float spawnInterval = 8f;
 
     [Tooltip("Maximo de enemigos vivos generados por este spawner simultaneamente.")]
-    [SerializeField, Min(1)] private int maxAliveEnemies = 4;
+    [SerializeField, Min(1)] private int maxAliveEnemies = 2;
 
     [Header("Spawn position")]
     [Tooltip("Radio de aleatoriedad alrededor del punto de spawn.")]

@@ -7,16 +7,17 @@ public class EngineExhaust : MonoBehaviour
     [SerializeField] private Transform rightExhaust;
 
     [Header("Exhaust Particles")]
-    [SerializeField] private Color exhaustCore = new Color(0.3f, 0.6f, 1f, 1f);
-    [SerializeField] private Color exhaustEdge = new Color(0.1f, 0.2f, 0.8f, 0.6f);
-    [SerializeField] private float exhaustSpeed = 8f;
-    [SerializeField] private float exhaustLifetime = 0.6f;
-    [SerializeField] private float exhaustSize = 0.3f;
+    [SerializeField] private Color exhaustCore = new Color(0.5f, 0.85f, 1f, 1f);
+    [SerializeField] private Color exhaustEdge = new Color(0.15f, 0.4f, 1f, 0.9f);
+    [SerializeField] private float exhaustSpeed = 5f;
+    [SerializeField] private float exhaustLifetime = 0.35f;
+    [SerializeField] private float exhaustSize = 0.25f;
 
     [Header("Engine Glow")]
-    [SerializeField] private Color glowColor = new Color(0.2f, 0.5f, 1f, 1f);
-    [SerializeField] private float glowIntensity = 3f;
-    [SerializeField] private float pulseSpeed = 4f;
+    [SerializeField] private Color glowColor = new Color(0.3f, 0.7f, 1f, 1f);
+    [SerializeField] private float glowIntensity = 8f;
+    [SerializeField] private float glowRange = 6f;
+    [SerializeField] private float pulseSpeed = 6f;
 
     private ParticleSystem leftPS;
     private ParticleSystem rightPS;
@@ -42,13 +43,15 @@ public class EngineExhaust : MonoBehaviour
 
         if (leftGlow != null)
         {
-            //leftGlow.intensity = glowIntensity * intensity * pulse;
+            leftGlow.intensity = glowIntensity * pulse;
+            leftGlow.range = glowRange;
             leftGlow.color = glowColor;
         }
 
         if (rightGlow != null)
         {
-            //rightGlow.intensity = glowIntensity * intensity * pulse;
+            rightGlow.intensity = glowIntensity * pulse;
+            rightGlow.range = glowRange;
             rightGlow.color = glowColor;
         }
     }
@@ -72,14 +75,14 @@ public class EngineExhaust : MonoBehaviour
         glow.type = LightType.Point;
         glow.color = glowColor;
         glow.intensity = glowIntensity;
-        glow.range = 3f;
+        glow.range = glowRange;
 
         var main = ps.main;
-        main.maxParticles = 100;
+        main.maxParticles = 80;
         main.loop = true;
         main.startLifetime = exhaustLifetime;
         main.startSpeed = exhaustSpeed;
-        main.startSize = new ParticleSystem.MinMaxCurve(exhaustSize * 0.5f, exhaustSize);
+        main.startSize = new ParticleSystem.MinMaxCurve(exhaustSize * 0.6f, exhaustSize);
         main.startColor = new ParticleSystem.MinMaxGradient(exhaustCore, exhaustEdge);
         main.simulationSpace = ParticleSystemSimulationSpace.World;
         main.playOnAwake = true;
@@ -87,26 +90,28 @@ public class EngineExhaust : MonoBehaviour
         main.gravityModifier = 0f;
 
         var emission = ps.emission;
-        emission.rateOverTime = 40;
+        emission.rateOverTime = 60;
 
         var shape = ps.shape;
         shape.enabled = true;
         shape.shapeType = ParticleSystemShapeType.Cone;
-        shape.angle = 15f;
-        shape.radius = 0.1f;
+        shape.angle = 10f;
+        shape.radius = 0.05f;
 
         var colorOverLifetime = ps.colorOverLifetime;
         colorOverLifetime.enabled = true;
         Gradient grad = new Gradient();
         grad.SetKeys(
             new GradientColorKey[] {
-                new GradientColorKey(exhaustCore, 0f),
-                new GradientColorKey(exhaustEdge, 0.5f),
-                new GradientColorKey(Color.clear, 1f)
+                new GradientColorKey(Color.white, 0f),
+                new GradientColorKey(exhaustCore, 0.2f),
+                new GradientColorKey(exhaustEdge, 0.6f),
+                new GradientColorKey(exhaustEdge * 0.5f, 1f)
             },
             new GradientAlphaKey[] {
                 new GradientAlphaKey(1f, 0f),
-                new GradientAlphaKey(0.8f, 0.3f),
+                new GradientAlphaKey(1f, 0.4f),
+                new GradientAlphaKey(0.6f, 0.8f),
                 new GradientAlphaKey(0f, 1f)
             }
         );
@@ -114,15 +119,18 @@ public class EngineExhaust : MonoBehaviour
 
         var sizeOverLifetime = ps.sizeOverLifetime;
         sizeOverLifetime.enabled = true;
-        sizeOverLifetime.size = new ParticleSystem.MinMaxCurve(1f,
-            AnimationCurve.Linear(0f, 1f, 1f, 0.3f));
+        AnimationCurve sizeCurve = new AnimationCurve();
+        sizeCurve.AddKey(0f, 1f);
+        sizeCurve.AddKey(0.3f, 1.1f);
+        sizeCurve.AddKey(1f, 0.2f);
+        sizeOverLifetime.size = new ParticleSystem.MinMaxCurve(1f, sizeCurve);
 
         var renderer = exhaustObj.GetComponent<ParticleSystemRenderer>();
         if (renderer == null)
             renderer = exhaustObj.AddComponent<ParticleSystemRenderer>();
 
         renderer.material = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-        renderer.material.color = exhaustCore;
+        renderer.material.color = Color.white;
         renderer.material.SetFloat("_Surface", 1);
         renderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
         renderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.One);

@@ -62,13 +62,6 @@ public class RoundManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isRoundActive) return;
-
-        timeRemaining -= Time.deltaTime;
-        if (timeRemaining <= 0f)
-        {
-            EndRound();
-        }
     }
 
     public void StartNewGame()
@@ -115,7 +108,6 @@ public class RoundManager : MonoBehaviour
             if (spawner != null)
             {
                 spawner.StopSpawning();
-                spawner.ClearAliveEnemies();
             }
         }
 

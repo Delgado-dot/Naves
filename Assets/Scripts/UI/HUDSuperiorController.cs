@@ -30,9 +30,7 @@ public sealed class HUDSuperiorController : MonoBehaviour
     {
         tiempoSobrevivido += Time.deltaTime;
 
-        horda = roundManager != null && roundManager.CurrentRound > 0
-            ? roundManager.CurrentRound
-            : 1 + Mathf.FloorToInt(tiempoSobrevivido / duracionHorda);
+        horda = 1 + Mathf.FloorToInt(tiempoSobrevivido / duracionHorda);
 
         if (ScoreManager.Instance != null)
             puntaje = Mathf.Max(0, ScoreManager.Instance.Score);
