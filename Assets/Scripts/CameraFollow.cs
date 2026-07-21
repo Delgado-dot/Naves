@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/// <summary>Third-person camera that follows the target with smooth position and rotation.</summary>
+/// <summary>Third-person camera that smoothly follows a target Transform.</summary>
 public class CameraFollow : MonoBehaviour
 {
     [Header("Target")]
