@@ -17,6 +17,7 @@ public sealed class MenuPausaController : MonoBehaviour
     private PlayerInputActions inputActions;
     private CursorLockMode cursorAnterior;
     private bool cursorVisibleAnterior;
+    private bool audioPausadoAnterior;
     private bool pausado;
 
     private void Awake()
@@ -48,13 +49,19 @@ public sealed class MenuPausaController : MonoBehaviour
     private void OnDestroy()
     {
         if (pausado)
+        {
             Time.timeScale = 1f;
+            AudioListener.pause = audioPausadoAnterior;
+        }
 
         inputActions?.Dispose();
     }
 
     private void AlPresionarPausa(InputAction.CallbackContext contexto)
     {
+        if (MenuGameOverController.GameOverActivo)
+            return;
+
         if (pausado)
             Continuar();
         else
@@ -63,15 +70,17 @@ public sealed class MenuPausaController : MonoBehaviour
 
     public void Pausar()
     {
-        if (menuPausa == null || pausado)
+        if (menuPausa == null || pausado || MenuGameOverController.GameOverActivo)
             return;
 
         cursorAnterior = Cursor.lockState;
         cursorVisibleAnterior = Cursor.visible;
+        audioPausadoAnterior = AudioListener.pause;
         pausado = true;
         menuPausa.SetActive(true);
         menuPausa.transform.SetAsLastSibling();
         Time.timeScale = 0f;
+        AudioListener.pause = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
@@ -86,6 +95,7 @@ public sealed class MenuPausaController : MonoBehaviour
 
         pausado = false;
         Time.timeScale = 1f;
+        AudioListener.pause = audioPausadoAnterior;
         menuPausa.SetActive(false);
         Cursor.lockState = cursorAnterior;
         Cursor.visible = cursorVisibleAnterior;
@@ -106,6 +116,7 @@ public sealed class MenuPausaController : MonoBehaviour
     public void Salir()
     {
         Time.timeScale = 1f;
+        AudioListener.pause = false;
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -117,6 +128,7 @@ public sealed class MenuPausaController : MonoBehaviour
     {
         pausado = false;
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

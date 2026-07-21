@@ -44,10 +44,10 @@ public class RadarController : MonoBehaviour
         if (player == null || radarArea == null)
             return;
 
-        if (Time.unscaledTime >= nextRefreshTime)
+        if (Time.time >= nextRefreshTime)
         {
             RefreshTargets();
-            nextRefreshTime = Time.unscaledTime + refreshInterval;
+            nextRefreshTime = Time.time + refreshInterval;
         }
 
         float radius = Mathf.Min(radarArea.rect.width, radarArea.rect.height) * 0.46f;
@@ -73,7 +73,7 @@ public class RadarController : MonoBehaviour
             }
 
             blip.anchoredPosition = anchoredPosition;
-            float blipPulse = 0.85f + Mathf.Sin(Time.unscaledTime * 6f + enemyTransform.GetInstanceID()) * 0.2f;
+            float blipPulse = 0.85f + Mathf.Sin(Time.time * 6f + enemyTransform.GetInstanceID()) * 0.2f;
             blip.localScale = Vector3.one * blipPulse;
         }
 

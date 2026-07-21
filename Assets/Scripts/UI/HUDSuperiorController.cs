@@ -16,6 +16,10 @@ public sealed class HUDSuperiorController : MonoBehaviour
     private int puntaje;
     private RoundManager roundManager;
 
+    public float TiempoSobrevivido => tiempoSobrevivido;
+    public int HordaActual => horda;
+    public int PuntajeActual => puntaje;
+
     private void Awake()
     {
         roundManager = FindFirstObjectByType<RoundManager>();

@@ -81,7 +81,7 @@ public sealed class HUDRadarGraphic : MaskableGraphic
         float radius = Mathf.Min(r.width, r.height) * 0.46f;
         Color fill = new(0.003f, 0.025f, 0.065f, 0.93f);
         Color cyan = new(0.02f, 0.72f, 1f, 0.9f);
-        float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * velocidadPulso * Mathf.PI * 2f);
+        float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * velocidadPulso * Mathf.PI * 2f);
         AddRing(vh, c, radius + 8f, 6f + pulse * 3f, 96, new Color(cyan.r, cyan.g, cyan.b, .08f + pulse * .12f));
         AddDisk(vh, c, radius, 96, fill);
         AddRing(vh, c, radius, 4f, 96, cyan);
@@ -99,7 +99,7 @@ public sealed class HUDRadarGraphic : MaskableGraphic
             AddLine(vh, c + d * (radius + 5f), c + d * (radius + 13f), 3.5f, cyan);
         }
 
-        float sweepAngle = Time.unscaledTime * velocidadBarrido * Mathf.Deg2Rad;
+        float sweepAngle = Time.time * velocidadBarrido * Mathf.Deg2Rad;
         AddWedge(vh, c, radius * .93f, sweepAngle - .58f, sweepAngle,
             new Color(.03f, .65f, 1f, .14f));
         for (int trail = 4; trail >= 0; trail--)

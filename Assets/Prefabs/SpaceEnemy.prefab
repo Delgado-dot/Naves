@@ -127,8 +127,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpaceEnemy
   maxHealth: 20
   scoreValue: 100
-  moveSpeed: 5
+  moveSpeed: 25
   rotationSpeed: 10
+  stoppingDistance: 22
+  projectilePrefab: {fileID: 7424472565187598211, guid: 5a317009a9d59a04cb1709b2e2960c59, type: 3}
+  fireInterval: 1.4
+  fireRange: 70
+  projectileDamage: 8
+  projectileSpeed: 55
+  muzzleOffset: 2.6
   collisionDamage: 10
   useOrbit: 0
   orbitRadius: 3
