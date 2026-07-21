@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     public float maxBoostEnergy = 100f;
     public float boostConsumption = 25f;
     public float rechargeSpeed = 15f;
+    [Header("Audio Boost")]
+    public AudioSource boostAudioSource;
+    public AudioClip boostSound;
 
     [Header("Cámara")]
     public CinemachineCamera cinemachineCamera;
@@ -173,6 +176,15 @@ public class PlayerMovement : MonoBehaviour
             boostEnergy -= boostConsumption * boostDuration;
 
             boostEnergy = Mathf.Max(boostEnergy, 0f);
+
+
+            // Sonido de propulsión
+            if (boostAudioSource != null && boostSound != null)
+            {
+                boostAudioSource.clip = boostSound;
+                boostAudioSource.loop = true;
+                boostAudioSource.Play();
+            }
         }
 
 
@@ -191,6 +203,11 @@ public class PlayerMovement : MonoBehaviour
             if (boostTimer <= 0)
             {
                 isBoostActive = false;
+
+                if (boostAudioSource != null && boostAudioSource.isPlaying)
+                {
+                    boostAudioSource.Stop();
+                }
             }
         }
         else
@@ -198,9 +215,13 @@ public class PlayerMovement : MonoBehaviour
             boostEnergy += rechargeSpeed * Time.deltaTime;
             boostEnergy = Mathf.Min(boostEnergy, maxBoostEnergy);
 
-
             leftEmission.rateOverTime = 0f;
             rightEmission.rateOverTime = 0f;
+
+            if (boostAudioSource != null && boostAudioSource.isPlaying)
+            {
+                boostAudioSource.Stop();
+            }
         }
     }
     private void UpdateCameraFOV()
