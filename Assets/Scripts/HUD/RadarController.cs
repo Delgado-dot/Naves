@@ -70,6 +70,8 @@ public class RadarController : MonoBehaviour
             }
 
             blip.anchoredPosition = anchoredPosition;
+            float blipPulse = 0.85f + Mathf.Sin(Time.unscaledTime * 6f + enemyTransform.GetInstanceID()) * 0.2f;
+            blip.localScale = Vector3.one * blipPulse;
         }
 
         staleKeys.Clear();

@@ -4,6 +4,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasRenderer))]
 public sealed class HUDRadarGraphic : MaskableGraphic
 {
+    [SerializeField, Min(1f)] private float velocidadBarrido = 75f;
+    [SerializeField, Min(0.1f)] private float velocidadPulso = 2.2f;
+
+    private void Update()
+    {
+        SetVerticesDirty();
+    }
+
     protected override void OnPopulateMesh(VertexHelper vh)
     {
         vh.Clear();
@@ -12,7 +20,8 @@ public sealed class HUDRadarGraphic : MaskableGraphic
         float radius = Mathf.Min(r.width, r.height) * 0.46f;
         Color fill = new(0.005f, 0.035f, 0.09f, 0.88f);
         Color cyan = new(0.02f, 0.72f, 1f, 0.9f);
-        AddRing(vh, c, radius + 9f, 8f, 64, new Color(cyan.r, cyan.g, cyan.b, .15f));
+        float pulse = 0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * velocidadPulso * Mathf.PI * 2f);
+        AddRing(vh, c, radius + 9f, 7f + pulse * 4f, 64, new Color(cyan.r, cyan.g, cyan.b, .1f + pulse * .16f));
         AddDisk(vh, c, radius, 64, fill);
         AddRing(vh, c, radius, 4f, 64, cyan);
         AddRing(vh, c, radius - 7f, 1.5f, 64, new Color(cyan.r, cyan.g, cyan.b, .75f));
@@ -28,7 +37,18 @@ public sealed class HUDRadarGraphic : MaskableGraphic
             AddLine(vh, c + d * radius * .86f, c + d * radius, 3f, cyan);
             AddLine(vh, c + d * (radius + 5f), c + d * (radius + 15f), 5f, cyan);
         }
-        AddLine(vh,c,c+new Vector2(radius*.18f,radius*.42f),2f,new Color(.25f,.85f,1f,.55f));
+
+        float sweepAngle = Time.unscaledTime * velocidadBarrido * Mathf.Deg2Rad;
+        for (int trail = 5; trail >= 0; trail--)
+        {
+            float angle = sweepAngle - trail * 0.075f;
+            Vector2 direction = new(Mathf.Cos(angle), Mathf.Sin(angle));
+            float alpha = Mathf.Lerp(.06f, .9f, 1f - trail / 5f);
+            float width = Mathf.Lerp(1f, 3.5f, 1f - trail / 5f);
+            AddLine(vh, c, c + direction * radius * .94f, width, new Color(.1f, .85f, 1f, alpha));
+        }
+
+        AddRing(vh, c, 4f + pulse * 2f, 2f, 16, new Color(.25f, .9f, 1f, .7f + pulse * .3f));
     }
 
     private static void AddDisk(VertexHelper vh, Vector2 c, float radius, int n, Color color)
