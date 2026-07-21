@@ -125,9 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5e387f9a79ec643849bce60c68746e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceEnemy
-  maxHealth: 30
+  maxHealth: 20
   scoreValue: 100
-  moveSpeed: 20
+  moveSpeed: 5
   rotationSpeed: 10
   collisionDamage: 10
   useOrbit: 0

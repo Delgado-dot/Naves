@@ -18,14 +18,14 @@ public class PlayerMovement : MonoBehaviour
     public float strafeSmooth = 8f;
 
     [Header("Boost")]
-    public float boostSpeed = 55f;
-    public float boostAcceleration = 25f;
+    public float boostSpeed = 90f;
+    public float boostDuration = 4f;
 
     public float maxBoostEnergy = 100f;
     public float boostConsumption = 25f;
     public float rechargeSpeed = 15f;
 
-    [Header("CÃ¡mara")]
+    [Header("Cámara")]
     public CinemachineCamera cinemachineCamera;
 
     public float normalFOV = 60f;
@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isBoostActive;
     private float boostEnergy;
     private bool boosting;
+    private bool wasBoosting;
+    private float boostTimer;
     public ParticleSystem leftEngine;
     public ParticleSystem rightEngine;
     private float currentSpeed;
@@ -121,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveInput.y > 0)
         {
-            targetSpeed = maxSpeed;
+            targetSpeed = isBoostActive ? boostSpeed : maxSpeed;
         }
         else if (moveInput.y < 0)
         {
@@ -133,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        float accel = isBoostActive ? boostAcceleration : acceleration;
+        float accel = acceleration;
 
         if (currentSpeed < targetSpeed)
         {
@@ -155,35 +157,50 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleBoost()
     {
-        isBoostActive = boosting && boostEnergy > 0f;
+        var leftEmission = leftEngine.emission;
+        var rightEmission = rightEngine.emission;
+
+
+        // Detecta cuando se presiona Shift por primera vez
+        if (boosting && !wasBoosting && boostEnergy > 0)
+        {
+            isBoostActive = true;
+
+            currentSpeed = boostSpeed;
+
+            boostTimer = boostDuration;
+
+            boostEnergy -= boostConsumption * boostDuration;
+
+            boostEnergy = Mathf.Max(boostEnergy, 0f);
+        }
+
+
+        wasBoosting = boosting;
+
 
         if (isBoostActive)
         {
-            targetSpeed = boostSpeed;
+            boostTimer -= Time.deltaTime;
 
-            boostEnergy -= boostConsumption * Time.deltaTime;
-            boostEnergy = Mathf.Max(boostEnergy, 0f);
 
+            leftEmission.rateOverTime = 200f;
+            rightEmission.rateOverTime = 200f;
+
+
+            if (boostTimer <= 0)
+            {
+                isBoostActive = false;
+            }
         }
         else
         {
             boostEnergy += rechargeSpeed * Time.deltaTime;
             boostEnergy = Mathf.Min(boostEnergy, maxBoostEnergy);
 
-        }
 
-        float emissionRate = isBoostActive ? 80f : 0f;
-
-        if (leftEngine != null)
-        {
-            ParticleSystem.EmissionModule leftEmission = leftEngine.emission;
-            leftEmission.rateOverTime = emissionRate;
-        }
-
-        if (rightEngine != null)
-        {
-            ParticleSystem.EmissionModule rightEmission = rightEngine.emission;
-            rightEmission.rateOverTime = emissionRate;
+            leftEmission.rateOverTime = 0f;
+            rightEmission.rateOverTime = 0f;
         }
     }
     private void UpdateCameraFOV()
