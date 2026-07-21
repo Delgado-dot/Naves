@@ -18,6 +18,10 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] private Vector3 minBounds = new Vector3(-20f, 0f, -20f);
     [SerializeField] private Vector3 maxBounds = new Vector3(20f, 20f, 20f);
 
+    [Header("Strafe Roll")]
+    [SerializeField] private float strafeRollIntensity = 15f;
+    [SerializeField] private float strafeRollSmoothTime = 0.25f;
+
     private InputAction moveAction;
     private InputAction lookAction;
     private Vector2 moveInput;
@@ -26,6 +30,8 @@ public class PlayerShipController : MonoBehaviour
     private float totalPitch;
     private float currentRoll;
     private float rollVelocity;
+    private float currentStrafeRoll;
+    private float strafeRollVelocity;
 
     private void Awake()
     {
@@ -78,6 +84,8 @@ public class PlayerShipController : MonoBehaviour
             totalPitch = 0f;
             currentRoll = 0f;
             rollVelocity = 0f;
+            currentStrafeRoll = 0f;
+            strafeRollVelocity = 0f;
         }
     }
 
@@ -123,12 +131,16 @@ public class PlayerShipController : MonoBehaviour
         totalPitch -= look.y * pitchSensitivity;
         totalPitch = Mathf.Clamp(totalPitch, -maxPitchAngle, maxPitchAngle);
 
-        float targetRoll = Mathf.Clamp(-look.x * rollIntensity, -rollIntensity, rollIntensity);
-        currentRoll = Mathf.SmoothDamp(currentRoll, targetRoll, ref rollVelocity, rollSmoothTime);
+        float lookRollTarget = Mathf.Clamp(-look.x * rollIntensity, -rollIntensity, rollIntensity);
+        currentRoll = Mathf.SmoothDamp(currentRoll, lookRollTarget, ref rollVelocity, rollSmoothTime);
 
+        float strafeRollTarget = Mathf.Clamp(-moveInput.x * strafeRollIntensity, -strafeRollIntensity, strafeRollIntensity);
+        currentStrafeRoll = Mathf.SmoothDamp(currentStrafeRoll, strafeRollTarget, ref strafeRollVelocity, strafeRollSmoothTime);
+
+        float totalRoll = currentRoll + currentStrafeRoll;
         Quaternion yawRot = Quaternion.Euler(0f, totalYaw, 0f);
         Quaternion pitchRot = Quaternion.Euler(totalPitch, 0f, 0f);
-        Quaternion rollRot = Quaternion.Euler(0f, 0f, currentRoll);
+        Quaternion rollRot = Quaternion.Euler(0f, 0f, totalRoll);
 
         transform.rotation = yawRot * pitchRot * rollRot;
     }
