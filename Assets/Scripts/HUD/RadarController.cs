@@ -11,7 +11,6 @@ public class RadarController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float worldRange = 150f;
-    [SerializeField] private string enemyTag = "Enemy";
     [SerializeField] private float blipSize = 10f;
     [SerializeField] private Color blipColor = new Color(1f, 0.2f, 0.2f, 1f);
     [SerializeField, Min(0.05f)] private float refreshInterval = 0.25f;
@@ -102,10 +101,10 @@ public class RadarController : MonoBehaviour
 
     private void RefreshTargets()
     {
-        targets.RemoveWhere(target => target == null);
+        targets.Clear();
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        foreach (GameObject enemy in enemies)
+        SpaceEnemy[] enemies = FindObjectsByType<SpaceEnemy>(FindObjectsSortMode.None);
+        foreach (SpaceEnemy enemy in enemies)
             RegistrarObjetivo(enemy.transform);
     }
 
