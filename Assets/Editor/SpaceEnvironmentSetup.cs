@@ -254,8 +254,7 @@ public static class SpaceEnvironmentSetup
         {
             if (cam.CompareTag("MainCamera"))
             {
-                cam.clearFlags = CameraClearFlags.SolidColor;
-                cam.backgroundColor = new Color(0.01f, 0.01f, 0.03f, 1f);
+                
             }
         }
     }
