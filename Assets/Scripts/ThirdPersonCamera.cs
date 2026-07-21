@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Third-person camera that smoothly follows the player ship.</summary>
 public class ThirdPersonCamera : MonoBehaviour
 {
     [Header("Target")]
@@ -43,5 +44,15 @@ public class ThirdPersonCamera : MonoBehaviour
             desiredRotation,
             rotationSmoothSpeed * Time.deltaTime
         );
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (target == null)
+            return;
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(target.position, 0.15f);
+        Gizmos.DrawLine(transform.position, target.position);
     }
 }

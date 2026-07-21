@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>Handles player shooting with alternating fire points and visual recoil.</summary>
 public class PlayerShooter : MonoBehaviour
 {
     [Header("References")]
@@ -12,9 +13,18 @@ public class PlayerShooter : MonoBehaviour
     [Header("Fire Rate")]
     [SerializeField] private float fireCooldown = 0.15f;
 
+    [Header("Recoil")]
+    [SerializeField] private float recoilDistance = 0.15f;
+    [SerializeField] private float recoilReturnSpeed = 8f;
+
     private InputAction attackAction;
     private bool useLeft = true;
     private float lastFireTime;
+
+    private Vector3 leftOrigin;
+    private Vector3 rightOrigin;
+    private float leftRecoil;
+    private float rightRecoil;
 
     private void Awake()
     {
@@ -25,6 +35,15 @@ public class PlayerShooter : MonoBehaviour
             firePointRight = transform.Find("FirePointRight");
 
         attackAction = InputHelper.GetPlayerAction(inputActions, "Attack");
+    }
+
+    private void Start()
+    {
+        if (firePointLeft != null)
+            leftOrigin = firePointLeft.localPosition;
+
+        if (firePointRight != null)
+            rightOrigin = firePointRight.localPosition;
     }
 
     private void OnEnable()
@@ -43,6 +62,11 @@ public class PlayerShooter : MonoBehaviour
             attackAction.performed -= OnAttackPerformed;
             attackAction.Disable();
         }
+    }
+
+    private void Update()
+    {
+        ApplyRecoilReturn();
     }
 
     private void OnAttackPerformed(InputAction.CallbackContext _)
@@ -67,6 +91,47 @@ public class PlayerShooter : MonoBehaviour
 
         Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
+        if (useLeft)
+            leftRecoil = -recoilDistance;
+        else
+            rightRecoil = -recoilDistance;
+
         useLeft = !useLeft;
+    }
+
+    private void ApplyRecoilReturn()
+    {
+        if (firePointLeft != null)
+        {
+            leftRecoil = Mathf.Lerp(leftRecoil, 0f, recoilReturnSpeed * Time.deltaTime);
+            Vector3 pos = leftOrigin;
+            pos.z += leftRecoil;
+            firePointLeft.localPosition = pos;
+        }
+
+        if (firePointRight != null)
+        {
+            rightRecoil = Mathf.Lerp(rightRecoil, 0f, recoilReturnSpeed * Time.deltaTime);
+            Vector3 pos = rightOrigin;
+            pos.z += rightRecoil;
+            firePointRight.localPosition = pos;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        if (firePointLeft != null)
+        {
+            Gizmos.DrawSphere(firePointLeft.position, 0.08f);
+            Gizmos.DrawRay(firePointLeft.position, firePointLeft.forward * 0.5f);
+        }
+
+        if (firePointRight != null)
+        {
+            Gizmos.DrawSphere(firePointRight.position, 0.08f);
+            Gizmos.DrawRay(firePointRight.position, firePointRight.forward * 0.5f);
+        }
     }
 }
