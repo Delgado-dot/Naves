@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [RequireComponent(typeof(CanvasRenderer))]
 public sealed class HUDRadarGraphic : MaskableGraphic
@@ -7,9 +8,67 @@ public sealed class HUDRadarGraphic : MaskableGraphic
     [SerializeField, Min(1f)] private float velocidadBarrido = 75f;
     [SerializeField, Min(0.1f)] private float velocidadPulso = 2.2f;
 
+    private void Start()
+    {
+        CrearRosaDeNavegacion();
+    }
+
     private void Update()
     {
         SetVerticesDirty();
+    }
+
+    private void CrearRosaDeNavegacion()
+    {
+        if (transform.Find("RosaNavegacion") != null)
+            return;
+
+        GameObject root = new("RosaNavegacion", typeof(RectTransform));
+        root.layer = gameObject.layer;
+        root.transform.SetParent(transform, false);
+        RectTransform rootRect = root.GetComponent<RectTransform>();
+        rootRect.anchorMin = Vector2.zero;
+        rootRect.anchorMax = Vector2.one;
+        rootRect.offsetMin = Vector2.zero;
+        rootRect.offsetMax = Vector2.zero;
+
+        CrearEtiqueta(root.transform, "Norte", "N", new Vector2(0f, 0.41f), 24f, Color.white);
+        CrearEtiqueta(root.transform, "Este", "E", new Vector2(0.41f, 0f), 24f, Color.white);
+        CrearEtiqueta(root.transform, "Sur", "S", new Vector2(0f, -0.41f), 24f, Color.white);
+        CrearEtiqueta(root.transform, "Oeste", "O", new Vector2(-0.41f, 0f), 24f, Color.white);
+
+        string[] grados = { "045", "135", "225", "315" };
+        float[] angulos = { 45f, -45f, -135f, 135f };
+        for (int i = 0; i < grados.Length; i++)
+        {
+            float radianes = angulos[i] * Mathf.Deg2Rad;
+            Vector2 posicion = new Vector2(Mathf.Cos(radianes), Mathf.Sin(radianes)) * 0.34f;
+            CrearEtiqueta(root.transform, "Grado_" + grados[i], grados[i], posicion, 13f,
+                new Color(0.25f, 0.82f, 1f, 0.78f));
+        }
+    }
+
+    private static void CrearEtiqueta(Transform parent, string nombre, string contenido, Vector2 posicionNormalizada,
+        float tamano, Color color)
+    {
+        GameObject labelObject = new(nombre, typeof(RectTransform), typeof(TextMeshProUGUI));
+        labelObject.layer = parent.gameObject.layer;
+        labelObject.transform.SetParent(parent, false);
+
+        RectTransform rect = labelObject.GetComponent<RectTransform>();
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f) + posicionNormalizada;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = new Vector2(48f, 26f);
+
+        TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+        label.text = contenido;
+        label.fontSize = tamano;
+        label.fontStyle = FontStyles.Bold;
+        label.alignment = TextAlignmentOptions.Center;
+        label.color = color;
+        label.raycastTarget = false;
+        label.enableWordWrapping = false;
     }
 
     protected override void OnPopulateMesh(VertexHelper vh)
