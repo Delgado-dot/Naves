@@ -11,7 +11,33 @@ public static class SetupPlayerShip
 
     static SetupPlayerShip()
     {
-        EditorApplication.delayCall += CreatePlayerShipPrefab;
+        EditorApplication.delayCall += OnDomainLoad;
+    }
+
+    private static void OnDomainLoad()
+    {
+        CreateProjectilePrefab();
+        CreatePlayerShipPrefab();
+    }
+
+    private static void CreateProjectilePrefab()
+    {
+        const string path = "Assets/Prefabs/Projectile.prefab";
+
+        if (AssetDatabase.LoadAssetAtPath<GameObject>(path) != null)
+            return;
+
+        if (!AssetDatabase.IsValidFolder("Assets/Prefabs"))
+            AssetDatabase.CreateFolder("Assets", "Prefabs");
+
+        var projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        projectile.name = "Projectile";
+        projectile.transform.localScale = Vector3.one * 0.15f;
+        Object.DestroyImmediate(projectile.GetComponent<Collider>());
+        projectile.AddComponent<Projectile>();
+
+        PrefabUtility.SaveAsPrefabAsset(projectile, path);
+        Object.DestroyImmediate(projectile);
     }
 
     private static void CreatePlayerShipPrefab()
@@ -74,8 +100,23 @@ public static class SetupPlayerShip
         firePointRight.transform.localPosition = new Vector3(1.5f, 0f, 0f);
         firePointRight.transform.localRotation = Quaternion.identity;
 
+        var shooter = playerShip.GetComponent<PlayerShooter>();
+        ConfigureShooter(shooter, inputActions, firePointLeft.transform, firePointRight.transform);
+
         PrefabUtility.SaveAsPrefabAsset(playerShip, PrefabPath);
 
         Object.DestroyImmediate(playerShip);
+    }
+
+    private static void ConfigureShooter(PlayerShooter shooter, InputActionAsset inputActions, Transform left, Transform right)
+    {
+        SerializedObject so = new SerializedObject(shooter);
+        so.FindProperty("firePointLeft").objectReferenceValue = left;
+        so.FindProperty("firePointRight").objectReferenceValue = right;
+        so.FindProperty("projectilePrefab").objectReferenceValue =
+            AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Projectile.prefab");
+        if (inputActions != null)
+            so.FindProperty("inputActions").objectReferenceValue = inputActions;
+        so.ApplyModifiedProperties();
     }
 }
