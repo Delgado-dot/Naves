@@ -1,6 +1,6 @@
 using UnityEngine;
 
-/// <summary>Generic laser projectile that moves forward, detects collisions with HealthComponent, and applies damage.</summary>
+/// <summary>Generic laser projectile that moves forward, detects collisions with HealthComponent, applies damage, and spawns impact effects.</summary>
 [RequireComponent(typeof(Collider))]
 public class LaserProjectile : MonoBehaviour
 {
@@ -15,6 +15,13 @@ public class LaserProjectile : MonoBehaviour
     [Header("Collision")]
     [SerializeField] private LayerMask hitLayers = -1;
     [SerializeField] private bool destroyOnHit = true;
+
+    [Header("Impact Effects")]
+    [SerializeField] private GameObject impactVFX;
+    [SerializeField] private AudioClip impactSFX;
+    [SerializeField] private float vfxLifetime = 2f;
+    [SerializeField] private float sfxVolume = 1f;
+    [SerializeField] private bool alignVFXToNormal = true;
 
     private float lifeTimer;
     private Vector3 direction;
@@ -61,9 +68,29 @@ public class LaserProjectile : MonoBehaviour
             health.TakeDamage(damageInfo);
         }
 
+        SpawnImpactEffect(transform.position, -direction);
+
         if (destroyOnHit)
         {
             DestroyProjectile();
+        }
+    }
+
+    private void SpawnImpactEffect(Vector3 position, Vector3 normal)
+    {
+        if (impactVFX != null)
+        {
+            Quaternion rotation = alignVFXToNormal && normal != Vector3.zero
+                ? Quaternion.LookRotation(normal)
+                : Quaternion.identity;
+
+            var vfxInstance = Instantiate(impactVFX, position, rotation);
+            Destroy(vfxInstance, vfxLifetime);
+        }
+
+        if (impactSFX != null)
+        {
+            AudioSource.PlayClipAtPoint(impactSFX, position, sfxVolume);
         }
     }
 
