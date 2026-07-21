@@ -13,6 +13,9 @@ public sealed class MenuPrincipalController : MonoBehaviour
     [SerializeField] private Button botonCreditos;
     [SerializeField] private Button botonSalir;
 
+    [Header("Pantalla de instrucciones")]
+    [SerializeField] private PantallaInstrucciones pantallaInstrucciones;
+
     [Header("Ajustes")]
     [SerializeField] private GameObject panelAjustes;
     [SerializeField] private Slider volumenGeneral;
@@ -33,6 +36,7 @@ public sealed class MenuPrincipalController : MonoBehaviour
 
         if (volumenGeneral != null)
             volumenGeneral.SetValueWithoutNotify(AudioListener.volume);
+
         if (pantallaCompleta != null)
             pantallaCompleta.SetIsOnWithoutNotify(Screen.fullScreen);
 
@@ -48,7 +52,16 @@ public sealed class MenuPrincipalController : MonoBehaviour
     public void Jugar()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(EscenaGameplay);
+
+        if (pantallaInstrucciones != null)
+        {
+            pantallaInstrucciones.Mostrar();
+        }
+        else
+        {
+            // Respaldo por si olvidaste asignar el script en el Inspector.
+            SceneManager.LoadScene(EscenaGameplay);
+        }
     }
 
     public void AbrirAjustes()
@@ -72,9 +85,15 @@ public sealed class MenuPrincipalController : MonoBehaviour
         botonJugar?.Select();
     }
 
-    public void CambiarVolumen(float valor) => AudioListener.volume = Mathf.Clamp01(valor);
+    public void CambiarVolumen(float valor)
+    {
+        AudioListener.volume = Mathf.Clamp01(valor);
+    }
 
-    public void CambiarPantallaCompleta(bool activa) => Screen.fullScreen = activa;
+    public void CambiarPantallaCompleta(bool activa)
+    {
+        Screen.fullScreen = activa;
+    }
 
     public void Salir()
     {
@@ -111,6 +130,7 @@ public sealed class MenuPrincipalController : MonoBehaviour
     {
         if (boton == null)
             return;
+
         boton.onClick.RemoveListener(accion);
         boton.onClick.AddListener(accion);
     }
