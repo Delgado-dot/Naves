@@ -33,7 +33,10 @@ public static class SetupPlayerShip
         var projectile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         projectile.name = "Projectile";
         projectile.transform.localScale = Vector3.one * 0.15f;
-        Object.DestroyImmediate(projectile.GetComponent<Collider>());
+        var collider = projectile.GetComponent<Collider>();
+        collider.isTrigger = true;
+        var rb = projectile.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
         projectile.AddComponent<Projectile>();
 
         PrefabUtility.SaveAsPrefabAsset(projectile, path);
