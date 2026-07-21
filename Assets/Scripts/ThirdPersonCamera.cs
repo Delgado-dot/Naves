@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Third-person camera that smoothly follows the player ship.</summary>
 public class ThirdPersonCamera : MonoBehaviour
 {
     [Header("Target")]

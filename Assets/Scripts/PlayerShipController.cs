@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>Controls player ship movement, rotation, and position bounds.</summary>
 public class PlayerShipController : MonoBehaviour
 {
     [Header("Movement")]

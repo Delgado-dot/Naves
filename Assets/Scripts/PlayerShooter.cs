@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>Handles player shooting with alternating fire points and visual recoil.</summary>
 public class PlayerShooter : MonoBehaviour
 {
     [Header("References")]

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Projectile that moves forward and detects hits on Enemy-tagged objects.</summary>
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 40f;
