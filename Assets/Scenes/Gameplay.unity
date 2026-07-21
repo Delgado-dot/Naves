@@ -285,10 +285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &10523739
 Transform:
@@ -461,10 +461,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &25193824
 Transform:
@@ -5794,10 +5794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &126178083
 Transform:
@@ -5843,10 +5843,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &126412001
 Transform:
@@ -6032,10 +6032,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &155540143
 Transform:
@@ -6130,10 +6130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &166555273
 Transform:
@@ -6465,10 +6465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &195898440
 Transform:
@@ -8154,10 +8154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &359525765
 Transform:
@@ -10069,10 +10069,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &542721717
 Transform:
@@ -16414,10 +16414,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &749808150
 Transform:
@@ -16684,10 +16684,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &769733674
 Transform:
@@ -16810,10 +16810,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &787039919
 Transform:
@@ -17850,6 +17850,26 @@ MonoBehaviour:
   spawners:
   - {fileID: 769733673}
   - {fileID: 2000621130}
+  - {fileID: 787039918}
+  - {fileID: 195898439}
+  - {fileID: 155540142}
+  - {fileID: 1321918548}
+  - {fileID: 749808149}
+  - {fileID: 25193823}
+  - {fileID: 1930857421}
+  - {fileID: 166555272}
+  - {fileID: 126178082}
+  - {fileID: 1837362429}
+  - {fileID: 359525764}
+  - {fileID: 1534768014}
+  - {fileID: 542721716}
+  - {fileID: 1039711704}
+  - {fileID: 973006062}
+  - {fileID: 2031114509}
+  - {fileID: 2113673244}
+  - {fileID: 10523738}
+  - {fileID: 126412000}
+  - {fileID: 1113118223}
   onRoundStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -18353,10 +18373,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &973006063
 Transform:
@@ -18696,10 +18716,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &1039711705
 Transform:
@@ -20043,10 +20063,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &1113118224
 Transform:
@@ -21467,10 +21487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &1321918549
 Transform:
@@ -23483,10 +23503,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &1534768015
 Transform:
@@ -27386,10 +27406,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &1837362430
 Transform:
@@ -28583,10 +28603,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &1930857422
 Transform:
@@ -29379,10 +29399,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &2000621131
 Transform:
@@ -29707,10 +29727,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &2031114510
 Transform:
@@ -30265,10 +30285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80b5169991181d4ba24e6929f66e4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 5339562103063730082, guid: 9289914995c252548957041ad5cdb3d3, type: 3}
+  enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 4
+  maxAliveEnemies: 2
   spawnRadius: 60
 --- !u!4 &2113673245
 Transform:

@@ -52,16 +52,7 @@ public sealed class MenuPrincipalController : MonoBehaviour
     public void Jugar()
     {
         Time.timeScale = 1f;
-
-        if (pantallaInstrucciones != null)
-        {
-            pantallaInstrucciones.Mostrar();
-        }
-        else
-        {
-            // Respaldo por si olvidaste asignar el script en el Inspector.
-            SceneManager.LoadScene(EscenaGameplay);
-        }
+        SceneManager.LoadScene(EscenaGameplay);
     }
 
     public void AbrirAjustes()
