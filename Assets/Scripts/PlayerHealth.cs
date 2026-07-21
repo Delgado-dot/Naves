@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth;
 
+    [Header("Player Reference")]
+    [SerializeField] private PlayerReferenceSO playerReference;
+
     [Header("Invincibility")]
     [SerializeField] private float invincibilityDuration = 1.5f;
     private float invincibilityTimer;
@@ -24,6 +27,24 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+
+        if (playerReference != null)
+        {
+            playerReference.Register(transform);
+            Debug.Log($"[PlayerHealth] Jugador registrado en PlayerRef");
+        }
+        else
+        {
+            Debug.LogError("[PlayerHealth] Player Reference no asignado en el Inspector!", this);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (playerReference != null)
+        {
+            playerReference.Clear();
+        }
     }
 
     private void Update()
