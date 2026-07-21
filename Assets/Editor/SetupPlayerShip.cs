@@ -37,6 +37,11 @@ public static class SetupPlayerShip
         collider.isTrigger = true;
         var rb = projectile.AddComponent<Rigidbody>();
         rb.isKinematic = true;
+        var projLight = projectile.AddComponent<Light>();
+        projLight.type = LightType.Point;
+        projLight.color = new Color(0.3f, 0.7f, 1f, 1f);
+        projLight.intensity = 2f;
+        projLight.range = 4f;
         projectile.AddComponent<Projectile>();
 
         PrefabUtility.SaveAsPrefabAsset(projectile, path);
@@ -69,6 +74,16 @@ public static class SetupPlayerShip
         }
 
         playerShip.AddComponent<PlayerShooter>();
+        playerShip.AddComponent<EngineExhaust>();
+        playerShip.AddComponent<PlayerHealth>();
+
+        CapsuleCollider playerCollider = playerShip.AddComponent<CapsuleCollider>();
+        playerCollider.isTrigger = true;
+        playerCollider.radius = 1.5f;
+        playerCollider.height = 3f;
+        playerCollider.direction = 2;
+
+        playerShip.tag = "Player";
 
         var cameraPivot = new GameObject("CameraPivot");
         cameraPivot.transform.SetParent(playerShip.transform);
