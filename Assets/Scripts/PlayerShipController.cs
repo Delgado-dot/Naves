@@ -31,16 +31,14 @@ public class PlayerShipController : MonoBehaviour
             return;
         }
 
-        var playerMap = inputActions.FindActionMap("Player", false);
-
-        if (playerMap == null)
+        if (inputActions.FindActionMap("Player", false) == null)
         {
             Debug.LogError("Player action map not found.", this);
             return;
         }
 
-        moveAction = playerMap.FindAction("Move", false);
-        lookAction = playerMap.FindAction("Look", false);
+        moveAction = InputHelper.GetPlayerAction(inputActions, "Move");
+        lookAction = InputHelper.GetPlayerAction(inputActions, "Look");
     }
 
     private void Start()

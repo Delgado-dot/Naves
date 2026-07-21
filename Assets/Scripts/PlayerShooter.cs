@@ -24,11 +24,7 @@ public class PlayerShooter : MonoBehaviour
         if (firePointRight == null)
             firePointRight = transform.Find("FirePointRight");
 
-        if (inputActions != null)
-        {
-            var playerMap = inputActions.FindActionMap("Player", false);
-            attackAction = playerMap?.FindAction("Attack", false);
-        }
+        attackAction = InputHelper.GetPlayerAction(inputActions, "Attack");
     }
 
     private void OnEnable()
@@ -49,7 +45,7 @@ public class PlayerShooter : MonoBehaviour
         }
     }
 
-    private void OnAttackPerformed(InputAction.CallbackContext context)
+    private void OnAttackPerformed(InputAction.CallbackContext _)
     {
         if (Time.time < lastFireTime + fireCooldown)
             return;
