@@ -25,12 +25,15 @@ public class LaserProjectile : MonoBehaviour
 
     private float lifeTimer;
     private Vector3 direction;
+    private LaserProjectilePool pool;
 
     private void Awake()
     {
         var collider = GetComponent<Collider>();
         if (collider != null)
             collider.isTrigger = true;
+
+        pool = LaserProjectilePool.Instance;
     }
 
     private void OnEnable()
@@ -45,7 +48,7 @@ public class LaserProjectile : MonoBehaviour
         lifeTimer += Time.deltaTime;
         if (lifeTimer >= maxLifeTime)
         {
-            DestroyProjectile();
+            ReturnToPool();
         }
     }
 
@@ -72,7 +75,7 @@ public class LaserProjectile : MonoBehaviour
 
         if (destroyOnHit)
         {
-            DestroyProjectile();
+            ReturnToPool();
         }
     }
 
@@ -110,9 +113,16 @@ public class LaserProjectile : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    private void DestroyProjectile()
+    private void ReturnToPool()
     {
-        Destroy(gameObject);
+        if (pool != null)
+        {
+            pool.Return(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnValidate()
