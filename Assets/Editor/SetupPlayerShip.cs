@@ -55,6 +55,15 @@ public static class SetupPlayerShip
         mainCamera.AddComponent<AudioListener>();
         mainCamera.AddComponent<UniversalAdditionalCameraData>();
 
+        var cameraComponent = mainCamera.AddComponent<ThirdPersonCamera>();
+        SerializedObject camSo = new SerializedObject(cameraComponent);
+        SerializedProperty targetProp = camSo.FindProperty("target");
+        if (targetProp != null)
+        {
+            targetProp.objectReferenceValue = playerShip.transform;
+            camSo.ApplyModifiedProperties();
+        }
+
         var firePointLeft = new GameObject("FirePointLeft");
         firePointLeft.transform.SetParent(playerShip.transform);
         firePointLeft.transform.localPosition = new Vector3(-1.5f, 0f, 0f);
