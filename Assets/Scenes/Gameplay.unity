@@ -288,7 +288,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &10523739
 Transform:
@@ -464,7 +464,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &25193824
 Transform:
@@ -5797,7 +5797,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &126178083
 Transform:
@@ -5846,7 +5846,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &126412001
 Transform:
@@ -6035,7 +6035,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &155540143
 Transform:
@@ -6133,7 +6133,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &166555273
 Transform:
@@ -6468,7 +6468,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &195898440
 Transform:
@@ -8157,7 +8157,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &359525765
 Transform:
@@ -10072,7 +10072,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &542721717
 Transform:
@@ -16417,7 +16417,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &749808150
 Transform:
@@ -16687,7 +16687,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &769733674
 Transform:
@@ -16813,7 +16813,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &787039919
 Transform:
@@ -18376,7 +18376,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &973006063
 Transform:
@@ -18719,7 +18719,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &1039711705
 Transform:
@@ -20066,7 +20066,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &1113118224
 Transform:
@@ -21490,7 +21490,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &1321918549
 Transform:
@@ -23506,7 +23506,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &1534768015
 Transform:
@@ -27413,7 +27413,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &1837362430
 Transform:
@@ -28610,7 +28610,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &1930857422
 Transform:
@@ -29406,7 +29406,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &2000621131
 Transform:
@@ -29734,7 +29734,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &2031114510
 Transform:
@@ -30292,7 +30292,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2672531131920994672, guid: 1c1e883b03539c94a90a13b0b6ffec59, type: 3}
   playerReference: {fileID: 11400000, guid: 1b53a4a5b3170ad41babfa21eafa28d2, type: 2}
   spawnInterval: 3
-  maxAliveEnemies: 2
+  maxAliveEnemies: 1
   spawnRadius: 60
 --- !u!4 &2113673245
 Transform:
